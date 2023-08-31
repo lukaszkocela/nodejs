@@ -31,7 +31,9 @@ const getContactById = async (contactId) => {
 const removeContact = async (contactId) => {
   try {
     const contacts = await getContacts();
-    const findContactToDelete = contacts.find((c) => c.id === contactId);
+    const findContactToDelete = contacts.find(
+      (contact) => contact.id === contactId
+    );
 
     if (findContactToDelete) {
       const contactsListAfterRemove = contacts.filter(
@@ -78,7 +80,7 @@ const updateContact = async (contactId, body) => {
     };
 
     const contacts = await getContacts();
-    const index = contacts.findIndex((c) => c.id === contactId);
+    const index = contacts.findIndex((contact) => contact.id === contactId);
 
     if (index === -1) return false;
 

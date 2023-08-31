@@ -18,7 +18,7 @@ router.get("/", async (req, res, next) => {
       data: { contactsList },
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json(`An error occured - ${error}`);
   }
 });
 
@@ -36,7 +36,7 @@ router.get("/:contactId", async (req, res, next) => {
       res.status(404).json({ message: "Not found" });
     }
   } catch (error) {
-    console.log(error);
+    res.status(500).json(`An error occured - ${error}`);
   }
 });
 
@@ -53,7 +53,7 @@ router.post("/", async (req, res, next) => {
       data: { addedContact },
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json(`An error occured - ${error}`);
   }
 });
 
@@ -66,7 +66,7 @@ router.delete("/:contactId", async (req, res, next) => {
       ? res.status(200).json({ message: "Contact deleted" })
       : res.status(404).json({ message: "Not found" });
   } catch (error) {
-    console.log(error);
+    res.status(500).json(`An error occured - ${error}`);
   }
 });
 
@@ -89,7 +89,7 @@ router.put("/:contactId", async (req, res, next) => {
       res.status(404).json({ message: "Not found" });
     }
   } catch (error) {
-    console.log(error);
+    res.status(500).json(`An error occured - ${error}`);
   }
 });
 
