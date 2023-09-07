@@ -35,7 +35,7 @@ const PORT = process.env.PORT || 3000;
 
 mongoose
   .connect(process.env.MONGODB_URI, {
-    dbName: "db-contacts",
+    dbName: "db_contacts",
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

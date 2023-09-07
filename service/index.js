@@ -1,4 +1,5 @@
 const Contact = require("./schemas/contact");
+const User = require("./schemas/user");
 
 const getAllContacts = async () => {
   return Contact.find();
@@ -24,6 +25,10 @@ const removeContact = (id) => {
   return Contact.findByIdAndRemove({ _id: id });
 };
 
+const createUser = ({ email, password }) => {
+  return User.create({ email, password });
+};
+
 module.exports = {
   getAllContacts,
   getContactById,
@@ -31,4 +36,5 @@ module.exports = {
   updateContact,
   removeContact,
   updateStatusContact,
+  createUser,
 };
