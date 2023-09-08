@@ -7,7 +7,8 @@ require("dotenv").config();
 
 const get = async (req, res, next) => {
   try {
-    const results = await service.getAllContacts();
+    const { id: userId } = req.user;
+    const results = await service.getAllContacts(userId);
     res.json({
       status: "Success",
       code: 200,
@@ -23,8 +24,9 @@ const get = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
   const { id } = req.params;
+  const { id: userId } = req.user;
   try {
-    const result = await service.getContactById(id);
+    const result = await service.getContactById(id, userId);
     if (result) {
       res.json({
         status: "Success",
@@ -47,8 +49,9 @@ const getById = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   const { name, email, phone } = req.body;
+  const { id: userId } = req.user;
   try {
-    const result = await service.createContact({ name, email, phone });
+    const result = await service.createContact({ name, email, phone }, userId);
 
     res.status(201).json({
       status: "Success",
@@ -127,9 +130,10 @@ const updateFavorite = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
   const { id } = req.params;
+  const { id: userId } = req.user;
 
   try {
-    const result = await service.removeContact(id);
+    const result = await service.removeContact(id, userId);
     if (result) {
       res.json({
         status: "Success",
