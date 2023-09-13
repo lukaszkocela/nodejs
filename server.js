@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-
 require("dotenv").config();
 
 const app = express();
@@ -10,6 +9,8 @@ app.use(express.json());
 app.use(cors());
 
 const routerApi = require("./api");
+app.use(express.static("public"));
+app.use("/avatars", express.static("public/avatars"));
 app.use("/api", routerApi);
 
 app.use((_, res, __) => {
