@@ -3,6 +3,9 @@ const Joi = require("joi");
 const User = require("../service/schemas/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const gravatar = require("gravatar");
+const jimp = require("jimp");
+const path = require("path");
 require("dotenv").config();
 
 const get = async (req, res, next) => {
@@ -163,6 +166,11 @@ const signUp = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const { error } = userSchema.validate({ email, password });
+    const avatarURL = gravatar.url(email, {
+      s: "250",
+      r: "pg",
+      d: "identicon",
+    });
 
     if (error) {
       return res.status(400).json({
@@ -189,6 +197,7 @@ const signUp = async (req, res, next) => {
       user: {
         email: result.email,
         subscription: result.subscription,
+        avatarURL: avatarURL,
       },
     });
   } catch (err) {
@@ -272,6 +281,30 @@ const currentUser = (req, res) => {
   }
 };
 
+const updateAvatar = async (req, res, next) => {
+  try {
+    const user = req.user;
+
+    const avatarPath = path.join(
+      __dirname,
+      "..",
+      "public",
+      "avatars",
+      req.file.filename
+    );
+    const avatar = await jimp.read(req.file.path);
+    await avatar.resize(250, 250).write(avatarPath);
+
+    user.avatarURL = `/avatars/${req.file.filename}`;
+    await user.save();
+
+    res.status(200).json({ avatarURL: user.avatarURL });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   get,
   getById,
@@ -283,4 +316,5 @@ module.exports = {
   logIn,
   logOut,
   currentUser,
+  updateAvatar,
 };
