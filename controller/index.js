@@ -237,7 +237,9 @@ const logIn = async (req, res, next) => {
     }
 
     if (!registeredUser.verify) {
-      return res.status(403).json({ message: "403" });
+      return res
+        .status(403)
+        .json({ message: "Please verify your email first!" });
     }
 
     const payload = {
