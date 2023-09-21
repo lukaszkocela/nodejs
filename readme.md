@@ -6,9 +6,9 @@ Base => Express / Morgan / Cors
 - hw03-mongoDB - database (Mongoose, MongoDB Atlas, MongoDB Compass)
 - hw04-auth - JWT, bcryptjs, passport, passport-jwt
 - hw05-avatars - Multer, gravatar
-- hw06-email - SendGrid
+- hw06-email - Nodemailer
 
-
+USE:
 - `npm start` (production)
 - `npm run start:dev` (development)
 
