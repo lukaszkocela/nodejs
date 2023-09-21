@@ -331,7 +331,7 @@ const verifyEmail = async (req, res) => {
 
     return res.status(200).json({ message: "Verification successful" });
   } catch (error) {
-    console.error("Błąd weryfikacji emaila:", error);
+    console.error("Verification error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -364,10 +364,7 @@ const resendVerificationEmail = async (req, res) => {
 
     return res.status(200).json({ message: "Verification email sent" });
   } catch (error) {
-    console.error(
-      "Błąd podczas ponownego wysyłania emaila weryfikacyjnego:",
-      error
-    );
+    console.error("Error - verification email not sent:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
